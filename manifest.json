@@ -9,5 +9,5 @@
       "js": ["dossier.js"]
     }
   ],
-  "permissions": ["*://*.faceit.com/*"]
+  "host_permissions": ["*://*.faceit.com/*"]
 }
