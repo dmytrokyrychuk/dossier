@@ -2,6 +2,14 @@
 
 > This project was bootstrapped using the Extension.js web template.
 
+## How to build
+
+```
+rm -r dist
+npm run build --browser=all
+zip -r ./dist/chrome.zip ./dist/chrome/
+```
+
 ## Directory Structure:
 
 ```
