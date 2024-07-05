@@ -2,5 +2,12 @@
   "manifest_version": 3,
   "version": "1.0",
   "name": "dossier",
-  "description": "A minimum extension template. This template includes a manifest file."
+  "description": "Mark Faceit users with emojis to remember how they played in the past.",
+  "content_scripts": [
+    {
+      "matches": ["*://*.faceit.com/*"],
+      "js": ["dossier.js"]
+    }
+  ],
+  "permissions": ["*://*.faceit.com/*"]
 }
