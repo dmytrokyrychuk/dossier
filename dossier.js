@@ -11,11 +11,13 @@
 
   function handleMutation() {
     // Add emoji selector on player's profile page
-    document.querySelectorAll(".sc-cdHbCu").forEach((node) => {
+    document.querySelectorAll("parasite-player-profile").forEach((node) => {
       // Avoid adding the menu multiple times
       if (node.querySelector("[data-dossier]")) return;
 
-      const username = node.querySelector("h5")?.textContent;
+      const usernameNode = node.querySelector("h5");
+      if (!usernameNode) return;
+      const username = usernameNode.textContent;
       if (!username) return;
 
       const select = document.createElement("select");
@@ -36,7 +38,7 @@
         }
       });
 
-      node.appendChild(select);
+      usernameNode.parentNode.appendChild(select);
     });
 
     // Add player's tag besides their username
