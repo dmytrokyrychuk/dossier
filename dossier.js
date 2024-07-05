@@ -1,8 +1,4 @@
 (function () {
-  function log() {
-    console.log("[dossier]:", ...arguments);
-  }
-
   function debounce(callback, wait) {
     let timerId;
     return (...args) => {
@@ -33,7 +29,6 @@
       `;
       select.value = localStorage.getItem("dossier-tag-" + username) || "";
       select.addEventListener("change", (e) => {
-        log("select change", e.target.value);
         if (e.target.value) {
           localStorage.setItem("dossier-tag-" + username, e.target.value);
         } else {
