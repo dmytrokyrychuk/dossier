@@ -29,7 +29,7 @@
       const select = document.createElement("select");
       select.dataset.dossier = "true";
       select.innerHTML = `
-        <option value="">📁</option>
+        <option value=""></option>
       `;
       browser.storage.sync.get("emojiOptions").then((result) => {
         result.emojiOptions.forEach((emoji) => {
