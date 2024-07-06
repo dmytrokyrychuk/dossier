@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Налаштування розширення</title>
+  <title>Extension Settings</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Налаштування розширення</h1>
+  <h1>Extension Settings</h1>
 
   <form id="options-form">
-    <label for="emoji-selector">Оберіть емодзі:</label>
-    <textarea id="emoji-selector"></textarea>
+    <label for="emoji-selector">Enter Emoji:</label>
+    <textarea id="emoji-selector" class="emoji-input" placeholder="Type your emoji here"></textarea>
 
-    <button type="submit">Зберегти</button>
+    <button type="submit">Submit</button>
   </form>
 
   <script src="options.js"></script>
