@@ -9,40 +9,6 @@
     };
   }
 
-  function openSettings() {
-    // Implement your settings logic here
-    // For example, show a modal or popup for settings
-    const modal = document.createElement("div");
-    modal.style.position = "fixed";
-    modal.style.top = "0";
-    modal.style.left = "0";
-    modal.style.width = "100%";
-    modal.style.height = "100%";
-    modal.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-    modal.style.display = "flex";
-    modal.style.justifyContent = "center";
-    modal.style.alignItems = "center";
-    modal.style.zIndex = "1000";
-
-    const settingsPanel = document.createElement("div");
-    settingsPanel.style.backgroundColor = "#fff";
-    settingsPanel.style.padding = "20px";
-    settingsPanel.style.borderRadius = "8px";
-    settingsPanel.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.3)";
-    settingsPanel.style.maxWidth = "400px";
-    settingsPanel.style.textAlign = "center";
-
-    const closeButton = document.createElement("button");
-    closeButton.textContent = "Close Settings";
-    closeButton.style.marginTop = "10px";
-    closeButton.addEventListener("click", () => {
-      modal.remove();
-    });
-
-    settingsPanel.appendChild(closeButton);
-    modal.appendChild(settingsPanel);
-    document.body.appendChild(modal);
-  }
 
   function handleMutation() {
     // Add emoji selector on player's profile page
