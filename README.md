@@ -5,9 +5,7 @@
 ## How to build
 
 ```
-rm -r dist
-npm run build --browser=all
-zip -r ./dist/chrome.zip ./dist/chrome/
+bash build.sh
 ```
 
 ## Directory Structure:
