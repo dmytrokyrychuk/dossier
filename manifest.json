@@ -2,12 +2,20 @@
   "manifest_version": 3,
   "version": "1.0.1",
   "name": "dossier",
-  "description": "Mark Faceit users with emojis to remember how they played in the past.",
+  "description": "Відмічайте користувачів Faceit з емодзі для запам'ятовування їхньої гри у минулому.",
+  "permissions": ["storage"],
   "content_scripts": [
     {
       "matches": ["*://*.faceit.com/*"],
       "js": ["dossier.js"]
     }
   ],
-  "host_permissions": ["*://*.faceit.com/*"]
+  "host_permissions": ["*://*.faceit.com/*"],
+  "action": {
+    "default_popup": "options.html"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
 }
