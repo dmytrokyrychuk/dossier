@@ -1,4 +1,9 @@
 (function () {
+  if (typeof browser === "undefined") {
+    var browser = chrome;
+  }
+
+
   function debounce(callback, wait) {
     let timerId;
     return (...args) => {
@@ -25,11 +30,13 @@
       select.dataset.dossier = "true";
       select.innerHTML = `
         <option value="">📁</option>
-        <option value="☢️">☢️</option>
-        <option value="😭">😭</option>
-        <option value="👍">👍</option>
-        <option value="❤️">❤️</option>
       `;
+      browser.storage.sync.get("emojiOptions").then((result) => {
+        result.emojiOptions.forEach((emoji) => {
+          select.innerHTML += `<option value="${emoji}">${emoji}</option>`;
+        })
+      }, (error) => {console.error(error);});
+
       select.value = localStorage.getItem("dossier-tag-" + username) || "";
       select.addEventListener("change", (e) => {
         if (e.target.value) {
