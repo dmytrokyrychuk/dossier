@@ -35,9 +35,9 @@
         result.emojiOptions.forEach((emoji) => {
           select.innerHTML += `<option value="${emoji}">${emoji}</option>`;
         })
+        select.value = localStorage.getItem("dossier-tag-" + username) || "";
       }, (error) => {console.error(error);});
 
-      select.value = localStorage.getItem("dossier-tag-" + username) || "";
       select.addEventListener("change", (e) => {
         if (e.target.value) {
           localStorage.setItem("dossier-tag-" + username, e.target.value);
