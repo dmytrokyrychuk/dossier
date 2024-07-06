@@ -7,27 +7,16 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     const emojiSelect = document.querySelector("#emoji-selector");
     browser.storage.sync.set({
-      selectedEmoji: emojiSelect.value,
+      emojiOptions: emojiSelect.value.split("\n").map(x => x.trim()).filter(x => x !== ""),
     });
-  });
-
-  // Обробник події для додавання своєї емодзі
-  document.querySelector("#add-custom-emoji").addEventListener("click", function () {
-    const customEmojiInput = document.querySelector("#custom-emoji");
-    const customEmojiValue = customEmojiInput.value.trim();
-    if (customEmojiValue) {
-      const emojiSelect = document.querySelector("#emoji-selector");
-      emojiSelect.innerHTML += `<option value="${customEmojiValue}">${customEmojiValue}</option>`;
-      customEmojiInput.value = "";
-    }
   });
 });
 
 // Відновлення вибраного емодзі зі сховища
 function restoreOptions() {
-  function setCurrentChoice(result) {
+  function onSuccess(result) {
     const emojiSelect = document.querySelector("#emoji-selector");
-    emojiSelect.value = result.selectedEmoji || "";
+    emojiSelect.value = result.emojiOptions.join("\n") || "☢\n😭\n👍\n❤";
   }
 
   function onError(error) {
@@ -35,5 +24,5 @@ function restoreOptions() {
   }
 
   const getting = browser.storage.sync.get("selectedEmoji");
-  getting.then(setCurrentChoice, onError);
+  getting.then(onSuccess, onError);
 }
