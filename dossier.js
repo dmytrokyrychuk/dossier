@@ -91,10 +91,6 @@
       node.parentNode.appendChild(span);
     });
   }
-
-  // Register a menu command for settings
-  GM_registerMenuCommand("Open Emoji Selector Settings", openSettings);
-
   window.addEventListener("load", () => {
     const observer = new MutationObserver(debounce(handleMutation, 500));
     observer.observe(document.body, { childList: true, subtree: true });
