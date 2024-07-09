@@ -1,4 +1,9 @@
 (function () {
+  if (typeof browser === "undefined") {
+    var browser = chrome;
+  }
+
+
   function debounce(callback, wait) {
     let timerId;
     return (...args) => {
@@ -8,6 +13,7 @@
       }, wait);
     };
   }
+
 
   function handleMutation() {
     // Add emoji selector on player's profile page
@@ -23,13 +29,15 @@
       const select = document.createElement("select");
       select.dataset.dossier = "true";
       select.innerHTML = `
-        <option value="">📁</option>
-        <option value="☢️">☢️</option>
-        <option value="😭">😭</option>
-        <option value="👍">👍</option>
-        <option value="❤️">❤️</option>
+        <option value=""></option>
       `;
-      select.value = localStorage.getItem("dossier-tag-" + username) || "";
+      browser.storage.sync.get("emojiOptions").then((result) => {
+        result.emojiOptions.forEach((emoji) => {
+          select.innerHTML += `<option value="${emoji}">${emoji}</option>`;
+        })
+        select.value = localStorage.getItem("dossier-tag-" + username) || "";
+      }, (error) => {console.error(error);});
+
       select.addEventListener("change", (e) => {
         if (e.target.value) {
           localStorage.setItem("dossier-tag-" + username, e.target.value);
@@ -56,7 +64,6 @@
       node.parentNode.appendChild(span);
     });
   }
-
   window.addEventListener("load", () => {
     const observer = new MutationObserver(debounce(handleMutation, 500));
     observer.observe(document.body, { childList: true, subtree: true });

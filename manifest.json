@@ -2,12 +2,25 @@
   "manifest_version": 3,
   "version": "1.0.1",
   "name": "dossier",
+  "permissions": ["storage"],
   "description": "Mark Faceit users with emojis to remember how they played in the past.",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "{3e2ec405-ef16-489a-b14b-a57d369d5355}"
+    }
+  },
   "content_scripts": [
     {
       "matches": ["*://*.faceit.com/*"],
       "js": ["dossier.js"]
     }
   ],
-  "host_permissions": ["*://*.faceit.com/*"]
+  "host_permissions": ["*://*.faceit.com/*"],
+  "action": {
+    "default_popup": "options.html"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
 }
