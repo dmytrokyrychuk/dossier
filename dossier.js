@@ -1,9 +1,8 @@
+if (typeof browser === "undefined") {
+  window.browser = chrome;
+}
+
 (function () {
-  if (typeof browser === "undefined") {
-    var browser = chrome;
-  }
-
-
   function debounce(callback, wait) {
     let timerId;
     return (...args) => {
@@ -17,11 +16,12 @@
 
   function handleMutation() {
     // Add emoji selector on player's profile page
-    document.querySelectorAll("parasite-player-profile").forEach((node) => {
+    document.querySelectorAll("[class*=PlayerBanner__Container]").forEach((node) => {
+      debugger;
       // Avoid adding the menu multiple times
       if (node.querySelector("[data-dossier]")) return;
 
-      const usernameNode = node.querySelector("h5");
+      const usernameNode = node.querySelector("[class*=styles__Nickname]");
       if (!usernameNode) return;
       const username = usernameNode.textContent;
       if (!username) return;
@@ -32,6 +32,10 @@
         <option value=""></option>
       `;
       browser.storage.sync.get("emojiOptions").then((result) => {
+        if (!result) result = {};
+        if (!result.emojiOptions) {
+          result.emojiOptions = ["☢️", "😭", "👍", "❤️"];
+        }
         result.emojiOptions.forEach((emoji) => {
           select.innerHTML += `<option value="${emoji}">${emoji}</option>`;
         })
@@ -50,18 +54,33 @@
     });
 
     // Add player's tag besides their username
-    document.querySelectorAll(".sc-eLtQCx").forEach((node) => {
-      // Avoid adding the tag multiple times
-      if (node.parentNode.querySelector("[data-dossier]")) return;
+    const usernameClasses = [
+      "styles__Name-",
+      "UserNickname__Container-",
+      "PlayerCell__Nickname-",
+      "Nickname__Container-"
+    ];
+    usernameClasses.forEach((className) => {
+      const selector = `[class*=${className}]`;
+      console.log("Class:", className, ", selector:", selector);
+      document.querySelectorAll(selector).forEach((node) => {
+        console.log("Node:", node);
+        const username = node.textContent.trim();
+        const tag = localStorage.getItem("dossier-tag-" + username);
+        let tagNode = node.parentNode.querySelector("[data-dossier]");
 
-      const username = node.textContent;
-      const tag = localStorage.getItem("dossier-tag-" + username);
-      if (!tag) return;
-
-      const span = document.createElement("span");
-      span.dataset.dossier = "true";
-      span.textContent = tag;
-      node.parentNode.appendChild(span);
+        if (tag) {
+          if (!tagNode) {
+            tagNode = document.createElement("span");
+            tagNode.dataset.dossier = "true";
+            node.parentNode.appendChild(tagNode);
+          }
+          tagNode.textContent = tag;
+        }
+        if (tagNode && !tag) {
+          tagNode.parentNode.removeChild(tagNode);
+        }
+      });
     });
   }
   window.addEventListener("load", () => {

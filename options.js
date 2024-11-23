@@ -1,5 +1,5 @@
 if (typeof browser === "undefined") {
-  var browser = chrome;
+  window.browser = chrome;
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -10,9 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
   document.querySelector("#options-form").addEventListener("submit", function (e) {
     e.preventDefault();
     const emojiSelect = document.querySelector("#emoji-selector");
+    console.log("Збереження налаштувань:", emojiSelect.value);
     browser.storage.sync.set({
       emojiOptions: emojiSelect.value.split("\n").map((option) => option.trim()).filter((option) => option),
     });
+
   });
 });
 
